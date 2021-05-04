@@ -1,0 +1,11 @@
+<nivel nombre="NCURSOR" id="CURSORID" interactivo="false">
+            <componente tipo="cursor" nombre="NOMBRE" id="IDCOMPONENTE">
+                <tabla schema="operation" nombre="solicitud_diagnostico_conservacion_documentos">
+                    <campo name="folio" text="" filtroCampo="folio" filtroOperador="=" filtroValor="$inParam.folio$"/>
+                    <campo name="oficio" text=""/>
+                    <campo name="oficio_adjunto" text=""/>
+                    <campo name="fecha_elaboracion" text=""/>
+                    <campo name="usuario_eleborador" text=""/>
+                </tabla>
+            </componente>
+        </nivel>
