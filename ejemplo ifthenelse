@@ -1,1 +1,1 @@
-interaccion-visible="@ifThenElse(%CURSORID.IDCOMPONENTE.oficio%==null,false,true"
+interaccion-visible="@ifThenElse(%CURSORID.IDCOMPONENTE.oficio%==null,false,true)"
