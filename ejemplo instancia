@@ -1,0 +1,12 @@
+<nivel nombre="crearNuevaInstancia" id="cI" interactivo="false">
+            <componente tipo="solicitud" nombre="crear oficio" id="cI">
+                <parametros url="$config.request$" metodo="POST" accion="crearNuevaInstancia" tipo="json">
+                    <parametro name="enterprise" calc="$protocolarios.enterprise$"/>
+                    <parametro name="process" calc="'41f9c172-2ad1-4149-bf0c-19c2419685b3'"/>
+                    <parametro name="user" calc="$protocolarios.user$"/>
+                    <parametro name="out_folio_anio" calc="%eligeOficio.eligeOficio.folio_anio%" mostrarEsc="true"/>
+                    <parametro name="out_folio" calc="%eligeOficio.eligeOficio.folio%" mostrarEsc="true"/>
+                    <!--<parametro name="out_fecha_elaboracion" calc="%eligeOficio.eligeOficio.fecha_elaboracion%" mostrarEsc="true"/>-->
+                </parametros>
+            </componente>
+        </nivel>
