@@ -1,0 +1,63 @@
+<tarea nombre="Cancela Solicitud de Diagnostico" id="t1">
+    <pagina nombre="Cancela Solicitud de Diagnostico" id="p1">
+        <nivel nombre="Cancela Solicitud de Diagnostico" id="n1" mostrarNivelAnterior="false" mostrarProximoNivel="false">
+            <componente tipo="reporte" nombre="solicitud" id="solicitud">
+                <reporte nombre="solicitud_diagnostico_conservacion_documentos">
+                    <campo name="folio_anio" type="long" calc="$inParam.folio_anio$"/>
+                    <campo name="folio" type="long" calc="$inParam.folio$"/>
+                </reporte>
+            </componente>
+            
+            <componente nombre="Cancela Solicitud de Diagnostico" id="com1" tipo="formulario" accionDefault="editar">
+                <tabla schema="catalog" nombre="dummy">
+                    <campo name="id_dummy" text="identificador" calc="1" visible="false"/>
+                    <campo name="nombre_dummy" visible="false"/>
+                    <campo name="cancelar" text="Cancelar" local="true" type="bool" columnas="4" margen-izquierdo="3" margen-derecho="3"/>
+                    <campo name="motivo_cancelacion" text="Motivo Cancelacion" local="true" type="memo" columnas="4" margen-izquierdo="3" margen-derecho="3" height="8"/>
+                </tabla>
+                
+                <estilos>
+                    <boton nombre="grabar" texto="Cancelar" columnas="4" margen-izquierdo="3" margen-derecho="3" />
+                </estilos>
+                <acciones>
+                    <accion nombre="grabar" hacer="saltar siguiente nivel"/>
+                </acciones> 
+                
+            </componente>
+        </nivel>
+        
+        <nivel nombre="actualizaEstatus" id="actualizaEstatus" interactivo="false" ejecutar="%n1.com1.cancelar%==true">
+            <componente tipo="cursor" nombre="actualizaEstatus" id="actualizaEstatus">
+                 <tabla schema="operation" nombre="diagnostico_descripcion_fondos_colecciones">
+                <campo name="folio_anio" filtroCampo="folio_anio" filtroOperador="=" filtroValor="$inParam.folio_anio$"/>    
+                <campo name="folio" filtroCampo="folio" filtroOperador="=" filtroValor="$inParam.folio$"/>
+                <campo name="estatus_documento" calc="3"/>
+                </tabla>
+            </componente>
+        </nivel>
+        
+        <nivel nombre="terminarInstancia" id="tIn" interactivo="false" ejecutar="%n1.com1.cancelar%==true">
+            <componente tipo="solicitud" nombre="" id="tIn">
+                <parametros url="$config.request$" metodo="POST" accion="terminarInstancia" tipo="json">
+                    <parametro name="enterprise" calc="$protocolarios.enterprise$"/>
+                    <parametro name="process" calc="$protocolarios.process$"/>
+                    <parametro name="version" calc="$protocolarios.version$"/>
+                    <parametro name="instance" calc="$protocolarios.instance$"/>
+                </parametros>
+            </componente>
+        </nivel>
+        
+        <nivel nombre="CerrarTarea" id="CerrarTarea" interactivo="false" ejecutar="%n1.com1.cancelar%==true">
+            <componente tipo="cursor" nombre="CerrarTarea" id="CerrarTarea">
+                <tabla schema="catalog" nombre="dummy">
+                    <campo name="id_dummy" text="id_dummy" filtroCampo="id_dummy" filtroOperador="=" filtroValor="1"/> 
+                </tabla>
+            </componente>
+        </nivel>
+        
+        
+        
+        
+    </pagina>
+    
+</tarea>
