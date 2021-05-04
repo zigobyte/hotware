@@ -1,0 +1,53 @@
+<tarea nombre="Edita solicitud" >
+    <pagina nombre="Edita solicitud" id="EditaaSolicitud">
+       
+        <nivel nombre="NCURSOR" id="CURSORID" interactivo="false">
+            <componente tipo="cursor" nombre="NOMBRE" id="IDCOMPONENTE">
+                <tabla schema="operation" nombre="solicitud_diagnostico_conservacion_documentos">
+                    <campo name="folio_anio"  filtroCampo="folio_anio" filtroOperador="=" filtroValor="$inParam.folio_anio$"/>
+                    <campo name="folio"  filtroCampo="folio" filtroOperador="=" filtroValor="$inParam.folio$"/>
+                    <campo name="oficio" />
+                    <campo name="oficio_adjunto" />
+                    <campo name="fecha_elaboracion" />
+                    <campo name="usuario_eleborador" />
+
+                </tabla>
+            </componente>
+        </nivel>
+ 
+        <nivel nombre="Editar solicitud" id="EditarSolicitud" mostrarNivelAnterior="false" mostrarProximoNivel="false">
+            <componente tipo="formulario" nombre="Elabora solicitud" id="EditaSolicitud">
+                <tabla schema="operation" nombre="solicitud_diagnostico_conservacion_documentos">
+                 
+                    
+                    <campo name="folio_anio" text="Folio" autogenerado="true" calc="$inParam.folio_anio$" columnas="5"  habilitado="false" visible="true" filtroCampo="folio_anio" filtroOperador="=" filtroValor="$inParam.folio_anio$"/>
+                    <campo name="folio" text="Folio" autogenerado="true" calc="$inParam.folio$" columnas="5" habilitado="false" visible="true" llaveForanea="false" filtroCampo="folio" filtroOperador="=" filtroValor="$inParam.folio$"/>
+                    <campo name="fecha_elaboracion" text="Fecha Elaboración"  habilitado="false" columnas="4" margen-izquierdo="3" margen-derecho="3"/>
+                    <campo name="oficio" text="Texto del oficio" columnas="10"  llaveForanea="false" type="rtf" interaccion-visible="@ifThenElse(%CURSORID.IDCOMPONENTE.oficio%==null,false,true)" interaccion="@ifThenElse(%CURSORID.IDCOMPONENTE.oficio%==null,false,true)"/> <!--  -->
+                   
+                    <campo name="oficio_adjunto" text="Adjunta el archivo del oficio" local="true" type="file" update="true" fileType="normal" url="'http://localhost:8080/Polux/ExternalDocumentReceiver'" nombreDocumento="'OFICIO'" grupo="%eligeOficio.eligeOficio.folio%" expediente="Oficios/oficio" columnas="10" interaccion-visible="@ifThenElse(%CURSORID.IDCOMPONENTE.oficio_adjunto%==null,true,false)" interaccion="@ifThenElse(%CURSORID.IDCOMPONENTE.oficio_adjunto%==null,true,false)"/> <!-- -->
+                     <campo name="usuario_elaborador" text="Usuario Elaborador" habilitado="false" llaveForanea="false"/>
+                </tabla>
+                
+                <estilos>
+                    <boton nombre="grabar" texto="Guardar" columnas="1" margen-izquierdo="6"/>
+                </estilos>
+                <acciones>
+                    <accion nombre="grabar" hacer="saltar siguiente nivel"/>
+                </acciones>
+            </componente>
+        </nivel>
+        
+        <nivel nombre="OficioModificado" id="OficioModificado" mostrarNivelAnterior="false" mostrarProximoNivel="false">
+            <componente tipo="reporte" nombre="Oficio Modificado" id="OficioModificado">
+                <reporte nombre="XXXXXXXX" >
+                    <campo name="" type="long" calc=""/>
+                    <campo name="" type="long" calc=""/>
+                    <campo name="" type="long" calc=""/>
+                </reporte>
+            </componente>
+        </nivel>
+        
+   
+    </pagina>
+</tarea>
